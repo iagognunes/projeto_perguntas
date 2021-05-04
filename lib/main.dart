@@ -1,65 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_perguntas/questao.dart';
+import 'package:projeto_perguntas/resposta.dart';
 
-void main() {
-  runApp(MyApp());
-}
+main() => runApp(PerguntaApp());
 
-class MyApp extends StatelessWidget {
+class PerguntaApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+  _PerguntaAppState createState() => _PerguntaAppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _perguntaSelecionada = 0;
 
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
+  void _responder() {
     setState(() {
-      _counter++;
+      _perguntaSelecionada++;
     });
+    print(_perguntaSelecionada);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+    final List<Map<String, Object>> perguntas = [
+      {
+        'texto': 'Qual é a sua cor favorita?',
+        'resposta': ['Preto', 'Vermelho', 'Verde', 'Azul'],
+      },
+      {
+        'texto': 'Qual é o seu animal favorito?',
+        'resposta': ['Coelho', 'Cobra', 'Elefante', 'Urubu'],
+      },
+      {
+        'texto': 'Qual é o seu instrutor favorito?',
+        'resposta': ['Maria', 'João', 'Leo', 'Iago'],
+      }
+    ];
+
+    List<Widget> respostas = [];
+    for (var textoResp in perguntas[_perguntaSelecionada]['resposta']) {
+      respostas.add(Resposta(textoResp, _responder));
+    }
+
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Perguntas',
+          ),
+        ),
+        body: Column(
+          children: [
+            Questao(perguntas[_perguntaSelecionada]['texto']),
+            ...respostas,
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), 
     );
   }
 }
