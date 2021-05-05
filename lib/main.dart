@@ -11,42 +11,45 @@ class PerguntaApp extends StatefulWidget {
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  var _pontuacaoTotal = 0;
   final _perguntas = const [
     {
       'texto': 'Qual é a sua cor favorita?',
       'resposta': [
-        {'texto': 'Preto', 'nota': 10},
-        {'texto': 'Vermelho', 'nota': 5},
-        {'texto': 'Verde', 'nota': 3},
-        {'texto': 'Azul', 'nota': 1},
+        {'texto': 'Preto', 'pontuacao': 10},
+        {'texto': 'Vermelho', 'pontuacao': 5},
+        {'texto': 'Verde', 'pontuacao': 3},
+        {'texto': 'Azul', 'pontuacao': 1},
       ],
     },
     {
       'texto': 'Qual é o seu animal favorito?',
       'resposta': [
-        {'texto': 'Coelho', 'nota': 1},
-        {'texto': 'Cobra', 'nota': 3},
-        {'texto': 'Elefante', 'nota': 5},
-        {'texto': 'Urubu', 'nota': 10},
+        {'texto': 'Coelho', 'pontuacao': 1},
+        {'texto': 'Cobra', 'pontuacao': 3},
+        {'texto': 'Elefante', 'pontuacao': 5},
+        {'texto': 'Urubu', 'pontuacao': 10},
       ],
     },
     {
       'texto': 'Qual é o seu instrutor favorito?',
       'resposta': [
-        {'texto': 'Maria', 'nota': 3},
-        {'texto': 'João', 'nota': 1},
-        {'texto': 'Leo', 'nota': 5},
-        {'texto': 'Iago', 'nota': 10},
+        {'texto': 'Maria', 'pontuacao': 3},
+        {'texto': 'João', 'pontuacao': 1},
+        {'texto': 'Leo', 'pontuacao': 5},
+        {'texto': 'Iago', 'pontuacao': 10},
       ],
     }
   ];
 
-  void _responder() {
+  void _responder(int pontuacao) {
     if (temPerguntaSelecionada) {
       setState(() {
         _perguntaSelecionada++;
+        _pontuacaoTotal += pontuacao;
       });
     }
+    print(_pontuacaoTotal);
   }
 
   bool get temPerguntaSelecionada {
